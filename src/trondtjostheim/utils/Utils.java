@@ -60,6 +60,38 @@ public float [][][] convertToChannels(BufferedImage image) {
     final int height = image.getHeight();
     final boolean hasAlphaChannel = image.getAlphaRaster() != null;
     float[][][] result = new float[4][height][width];
+    int pixel = 0;
+    if (hasAlphaChannel) {
+        // pixels are stored per column, so iterate j first
+        for(int i=0; i<width; i++)
+            for(int j=0; j<height; j++){
+                float alpha = (float)( (pixels[pixel++] & 0xff));// << 24)); // alpha
+                float blue = (float)(pixels[pixel++] & 0xff); // blue
+                float green = (float)( pixels[pixel++] & 0xff);// << 8); // green
+                float red = (float)( pixels[pixel++] & 0xff);//(float)(((int) pixels[pixel + 3] & 0xff) << 16); // red
+                result[0][j][i] = alpha;
+                result[1][j][i] = red;
+                result[2][j][i] = green;
+                result[3][j][i] = blue;
+            }
+    }
+    else{
+        for(int i=0; i<width; i++)
+            for(int j=0; j<height; j++){
+                // float alpha = (float)( (pixels[pixel++] & 0xff));// << 24)); // alpha
+                float blue = (float)(pixels[pixel++] & 0xff); // blue
+                float green = (float)( pixels[pixel++] & 0xff);// << 8); // green
+                float red = (float)( pixels[pixel++] & 0xff);//(float)(((int) pixels[pixel + 3] & 0xff) << 16); // red
+                result[0][j][i] = 255.f;
+                result[1][j][i] = red;
+                result[2][j][i] = green;
+                result[3][j][i] = blue;
+            }
+    }
+    
+    
+    
+    /*
     if (hasAlphaChannel) {
        final int pixelLength = 4;
        for (int pixel = 0, row = 0, col = 0; pixel + 3 < pixels.length; pixel += pixelLength) {
@@ -93,7 +125,7 @@ public float [][][] convertToChannels(BufferedImage image) {
              row++;
           }
        }
-    }
+    }*/
 
     return result;
  }
