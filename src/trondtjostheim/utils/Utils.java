@@ -2,6 +2,7 @@ package trondtjostheim.utils;
 //import java.util.Arrays;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
+import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
@@ -41,7 +42,7 @@ public float[][][] readImageChannels(String file) throws IOException {
     BufferedImage image;
     float[][][] retval = null;
     try {
-        image = ImageIO.read(Utils.class.getResource(file));
+        image = ImageIO.read(new File(file));
         retval = convertToChannels(image);
     } catch (IOException e) {
         // TODO Auto-generated catch block
