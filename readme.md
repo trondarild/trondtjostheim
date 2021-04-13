@@ -1,0 +1,1 @@
+Simple library with some java utilities and math functions
