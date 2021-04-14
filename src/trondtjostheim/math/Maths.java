@@ -74,4 +74,28 @@ public class Maths {
         return ret;
       }
     
+      /**
+       * Winner takes all for an array;
+       * Sets everything other than highest val to zero
+       * @param a
+       * @return
+       */
+      public float[] wta(float[] a){
+        float[] retval = new float[a.length];
+        int i = argmax(a); 
+        retval[i] = a[i];
+        return retval;
+      }
+
+    public int argmax(float[] a) {
+      float re = Float.MIN_VALUE;
+      int arg = -1;
+      for (int i = 0; i < a.length; i++) {
+          if (a[i] > re) {
+              re = a[i];
+              arg = i;
+          }
+      }
+      return arg;
+    }
 }
